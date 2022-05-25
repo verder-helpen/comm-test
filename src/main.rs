@@ -1,8 +1,8 @@
 use std::{error::Error as StdError, fmt::Display};
 
-use id_contact_jwt::decrypt_and_verify_auth_result;
-use id_contact_proto::{StartCommRequest, StartCommResponse};
 use rocket::{get, launch, post, routes, serde::json::Json, State};
+use verder_helpen_jwt::decrypt_and_verify_auth_result;
+use verder_helpen_proto::{StartCommRequest, StartCommResponse};
 
 mod config;
 
@@ -13,7 +13,7 @@ enum Error {
     Config(config::Error),
     Json(serde_json::Error),
     Utf(std::str::Utf8Error),
-    Jwt(id_contact_jwt::Error),
+    Jwt(verder_helpen_jwt::Error),
 }
 
 impl<'r, 'o: 'r> rocket::response::Responder<'r, 'o> for Error {
@@ -41,8 +41,8 @@ impl From<std::str::Utf8Error> for Error {
     }
 }
 
-impl From<id_contact_jwt::Error> for Error {
-    fn from(e: id_contact_jwt::Error) -> Error {
+impl From<verder_helpen_jwt::Error> for Error {
+    fn from(e: verder_helpen_jwt::Error) -> Error {
         Error::Jwt(e)
     }
 }

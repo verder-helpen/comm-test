@@ -1,5 +1,5 @@
 [global]
-server_url = "http://comm-test.idcontact.test.tweede.golf"
+server_url = "http://comm-test.verderhelpen.test.tweede.golf"
 internal_url = "http://comm-test:8000"
 use_attr_url = true
 
