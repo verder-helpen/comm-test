@@ -123,10 +123,10 @@ fn start(
 #[launch]
 fn rocket() -> _ {
     let base = rocket::build().mount("/", routes![start, attr_url, ui, ui_withparams,]);
-    let config = base.figment().extract::<Config>().unwrap_or_else(|_| {
-        // Drop error value, as it could contain secrets
-        panic!("Failure to parse configuration")
-    });
+    let config = base
+        .figment()
+        .extract::<Config>()
+        .unwrap_or_else(|e| panic!("Failure to parse configuration: {:?}", e));
 
     base.manage(config)
 }
