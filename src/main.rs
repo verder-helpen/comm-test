@@ -6,7 +6,7 @@ use verder_helpen_proto::{StartCommRequest, StartCommResponse};
 
 mod config;
 
-use config::Config;
+use config::{Config, RawConfig};
 
 #[derive(Debug)]
 enum Error {
@@ -123,6 +123,11 @@ fn start(
 #[launch]
 fn rocket() -> _ {
     let base = rocket::build().mount("/", routes![start, attr_url, ui, ui_withparams,]);
+    println!("Figment: {:?}", base.figment());
+    println!(
+        "Raw config result: {:?}",
+        base.figment().extract::<RawConfig>()
+    );
     let config = base
         .figment()
         .extract::<Config>()

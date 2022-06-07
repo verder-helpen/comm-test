@@ -54,7 +54,7 @@ fn default_as_true() -> bool {
 }
 
 #[derive(Deserialize, Debug)]
-struct RawConfig {
+pub struct RawConfig {
     server_url: String,
     internal_url: String,
     #[serde(default = "default_as_true")]
@@ -77,12 +77,27 @@ pub struct Config {
 impl TryFrom<RawConfig> for Config {
     type Error = Error;
     fn try_from(config: RawConfig) -> Result<Config, Error> {
+        println!("Configuration from {:?}", config);
+        let decrypter = match Box::<dyn JweDecrypter>::try_from(config.decryption_privkey) {
+            Ok(v) => v,
+            Err(e) => {
+                println!("Decryptor error {:?}", e);
+                return Err(e.into());
+            }
+        };
+        let verifier = match Box::<dyn JwsVerifier>::try_from(config.signature_pubkey) {
+            Ok(v) => v,
+            Err(e) => {
+                println!("Verifier error {:?}", e);
+                return Err(e.into());
+            }
+        };
         Ok(Config {
             server_url: config.server_url,
             internal_url: config.internal_url,
             use_attr_url: config.use_attr_url,
-            decrypter: Box::<dyn JweDecrypter>::try_from(config.decryption_privkey)?,
-            verifier: Box::<dyn JwsVerifier>::try_from(config.signature_pubkey)?,
+            decrypter,
+            verifier,
         })
     }
 }
