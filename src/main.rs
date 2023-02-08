@@ -80,7 +80,7 @@ fn ui_withparams(result: String, config: &State<Config>) -> Result<&'static str,
 
     let session_result =
         decrypt_and_verify_auth_result(&result, config.verifier(), config.decrypter())?;
-    println!("Decoded: {:?}", session_result);
+    println!("Decoded: {session_result:?}");
 
     Ok(ui())
 }
@@ -90,7 +90,7 @@ fn attr_url(auth_result: String, config: &State<Config>) -> Result<(), Error> {
     println!("Received authentication result {:?}", &auth_result);
     let auth_result =
         decrypt_and_verify_auth_result(&auth_result, config.verifier(), config.decrypter())?;
-    println!("Decoded: {:?}", auth_result);
+    println!("Decoded: {auth_result:?}");
 
     Ok(())
 }
@@ -100,14 +100,14 @@ fn start(
     request: Json<StartCommRequest>,
     config: &State<Config>,
 ) -> Result<Json<StartCommResponse>, Error> {
-    println!("Received communication request {:?}", request);
+    println!("Received communication request {request:?}");
     if let Some(auth_result) = &request.auth_result {
         let auth_result =
             decrypt_and_verify_auth_result(auth_result, config.verifier(), config.decrypter())?;
-        println!("Decoded auth_result: {:?}", auth_result);
+        println!("Decoded auth_result: {auth_result:?}");
     }
 
-    if config.use_attr_url() && request.auth_result == None {
+    if config.use_attr_url() && request.auth_result.is_none() {
         Ok(Json(StartCommResponse {
             client_url: format!("{}/ui", config.server_url()),
             attr_url: Some(format!("{}/auth_result", config.internal_url())),
