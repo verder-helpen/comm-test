@@ -1,8 +1,8 @@
-use serde::Deserialize;
 use std::{convert::TryFrom, error::Error as StdError, fmt::Display};
-use verder_helpen_jwt::{EncryptionKeyConfig, SignKeyConfig};
 
 use josekit::{jwe::JweDecrypter, jws::JwsVerifier};
+use serde::Deserialize;
+use verder_helpen_jwt::{EncryptionKeyConfig, SignKeyConfig};
 
 #[derive(Debug)]
 pub enum Error {
@@ -76,6 +76,7 @@ pub struct Config {
 // This tryfrom can be removed once try_from for fields lands in serde
 impl TryFrom<RawConfig> for Config {
     type Error = Error;
+
     fn try_from(config: RawConfig) -> Result<Config, Error> {
         Ok(Config {
             server_url: config.server_url,
