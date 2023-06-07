@@ -9,8 +9,8 @@ edition = "2018"
 [dependencies]
 verder-helpen-proto = { git = "https://github.com/verder-helpen/verder-helpen-proto.git" }
 verder-helpen-jwt = { git = "https://github.com/verder-helpen/verder-helpen-jwt.git" }
-rocket = { version = "0.5.0-rc.2", features = ["json"] }
-serde = { version = "1.0.152", features = [ "derive" ] }
-serde_json = "1.0.93"
-serde_yaml = "0.9.17"
-josekit = "0.8.2"
+rocket = { version = "0.5.0-rc.3", features = ["json"] }
+serde = { version = "1.0.163", features = [ "derive" ] }
+serde_json = "1.0.96"
+serde_yaml = "0.9.21"
+josekit = "0.8.3"
