@@ -1508,7 +1508,7 @@ dependencies = [
 [[package]]
 name = "verder-helpen-jwt"
 version = "0.1.0"
-source = "git+https://github.com/verder-helpen/verder-helpen-jwt.git#816c7e351191dcda019a42d6ce94459e93ed916a"
+source = "git+https://github.com/verder-helpen/verder-helpen-jwt.git#935f7b97870346afcb15235dabfa29510ada5857"
 dependencies = [
  "josekit",
  "serde",
@@ -1519,7 +1519,7 @@ dependencies = [
 [[package]]
 name = "verder-helpen-proto"
 version = "0.1.0"
-source = "git+https://github.com/verder-helpen/verder-helpen-proto.git#0341959ad6eaab0bd55982261f20f40c391a6714"
+source = "git+https://github.com/verder-helpen/verder-helpen-proto.git#7bcea6a2f6a6db23a6b6da2ef96f9a9774ffcc28"
 dependencies = [
  "rocket",
  "serde",
